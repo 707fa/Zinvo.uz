@@ -2,8 +2,9 @@
   "name": "zinvo-workspace",
   "private": true,
   "scripts": {
+    "postinstall": "npm --prefix zinvo install",
     "dev": "npm --prefix zinvo run dev",
-    "build": "npm --prefix zinvo run build",
+    "build": "npm --prefix zinvo install --no-audit --no-fund && npm --prefix zinvo run build",
     "start": "npm --prefix zinvo run start",
     "lint": "npm --prefix zinvo run lint"
   }
