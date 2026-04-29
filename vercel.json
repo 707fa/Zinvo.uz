@@ -1,5 +1,6 @@
 {
   "framework": "nextjs",
   "installCommand": "npm --prefix zinvo install --no-audit --no-fund",
-  "buildCommand": "npm --prefix zinvo run build"
+  "buildCommand": "npm --prefix zinvo run build",
+  "outputDirectory": "zinvo/.next"
 }
