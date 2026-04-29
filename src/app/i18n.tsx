@@ -17,16 +17,15 @@ export function text(value: Localized, lang: Lang) {
 }
 
 export function useLanguage() {
-  const [lang, setLangState] = useState<Lang>(() => {
-    if (typeof window === "undefined") {
-      return "ru";
-    }
-
-    const saved = window.localStorage.getItem("zinvo-language") as Lang | null;
-    return saved === "uz" || saved === "ru" || saved === "en" ? saved : "ru";
-  });
+  const [lang, setLangState] = useState<Lang>("ru");
 
   useEffect(() => {
+    // Only access localStorage on the client
+    const saved = window.localStorage.getItem("zinvo-language") as Lang | null;
+    if (saved === "uz" || saved === "ru" || saved === "en") {
+      setLangState(saved);
+    }
+
     const handleLanguageChange = (event: Event) => {
       const nextLang = (event as CustomEvent<Lang>).detail;
       if (nextLang === "uz" || nextLang === "ru" || nextLang === "en") {
@@ -43,8 +42,10 @@ export function useLanguage() {
 
   function setLang(nextLang: Lang) {
     setLangState(nextLang);
-    window.localStorage.setItem("zinvo-language", nextLang);
-    window.dispatchEvent(new CustomEvent("zinvo-language-change", { detail: nextLang }));
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("zinvo-language", nextLang);
+      window.dispatchEvent(new CustomEvent("zinvo-language-change", { detail: nextLang }));
+    }
   }
 
   return { lang, setLang };

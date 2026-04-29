@@ -42,7 +42,7 @@ const fadeUp = {
 };
 
 const telegramBotLink = "https://t.me/Zinvo_uz_Bot?start=order_request";
-const externalSiteLink = "#";
+const externalSiteLink = "/";
 
 const orderCopy: Record<Lang, Record<string, string>> = {
   en: {
