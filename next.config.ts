@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 import path from "node:path";
 
+const projectRoot = process.cwd();
+const repositoryRoot = path.basename(projectRoot) === "zinvo" ? path.dirname(projectRoot) : projectRoot;
+
 const serverLocalStorage = globalThis.localStorage;
 
 if (
@@ -11,7 +14,16 @@ if (
 }
 
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: path.join(process.cwd()),
+  outputFileTracingRoot: repositoryRoot,
+  webpack: (config) => {
+    config.resolve.modules = [
+      ...(config.resolve.modules || []),
+      path.join(projectRoot, "node_modules"),
+      path.join(repositoryRoot, "node_modules"),
+    ];
+
+    return config;
+  },
 };
 
 export default nextConfig;
