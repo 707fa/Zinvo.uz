@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { type CSSProperties, FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -41,6 +41,11 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
+const orderFieldTextStyle: CSSProperties = {
+  color: "#07132f",
+  WebkitTextFillColor: "#07132f",
+};
+
 const telegramBotLink = "https://t.me/Zinvo_uz_Bot?start=order_request";
 const externalSiteLink = "/";
 
@@ -50,7 +55,7 @@ const orderCopy: Record<Lang, Record<string, string>> = {
     site: "Open site",
     eyebrow: "Заявка на проект",
     title: "Tell us who to call back.",
-    intro: "Leave your name and phone number. We will contact you, clarify the task, and suggest the best format: website, web app, mobile app, backend, automation, or AI tool.",
+    intro: "Leave your name and phone number. We will contact you, clarify the task, and suggest the best format: website or application.",
     step1: "Quick call",
     step2: "Work plan",
     step3: "Project estimate",
@@ -76,7 +81,7 @@ const orderCopy: Record<Lang, Record<string, string>> = {
     site: "Перейти на сайт",
     eyebrow: "Loyiha so'rovi",
     title: "Расскажите, кому перезвонить.",
-    intro: "Оставьте имя и номер. Мы свяжемся, уточним задачу и предложим лучший формат разработки: сайт, web-приложение, мобильное приложение, backend, автоматизация или AI-инструмент.",
+    intro: "Оставьте имя и номер. Мы свяжемся, уточним задачу и предложим лучший формат разработки: веб-сайт или приложение.",
     step1: "Быстрый звонок",
     step2: "План работ",
     step3: "Оценка проекта",
@@ -102,7 +107,7 @@ const orderCopy: Record<Lang, Record<string, string>> = {
     site: "Saytga o'tish",
     eyebrow: "Project request",
     title: "Kimga qo'ng'iroq qilishimizni yozing.",
-    intro: "Ism va telefon raqamingizni qoldiring. Biz bog'lanamiz, vazifani aniqlashtiramiz va eng yaxshi formatni taklif qilamiz: sayt, web-ilova, mobil ilova, backend, avtomatlashtirish yoki AI tool.",
+    intro: "Ism va telefon raqamingizni qoldiring. Biz bog'lanamiz, vazifani aniqlashtiramiz va eng yaxshi formatni taklif qilamiz: veb-sayt yoki ilova.",
     step1: "Tez qo'ng'iroq",
     step2: "Ish rejasi",
     step3: "Loyiha bahosi",
@@ -134,9 +139,9 @@ export default function OrderPage() {
   const [telegramUser, setTelegramUser] = useState<TelegramUser | null>(null);
 
   const projectTypes: Record<Lang, string[]> = {
-    en: ["Website", "Web app", "Mobile app", "Full-stack product", "Backend / API", "Automation", "AI tool"],
-    ru: ["Сайт", "Web-приложение", "Мобильное приложение", "Full-stack продукт", "Backend / API", "Автоматизация", "AI-инструмент"],
-    uz: ["Sayt", "Web-ilova", "Mobil ilova", "Full-stack mahsulot", "Backend / API", "Avtomatlashtirish", "AI tool"],
+    en: ["Website", "Application"],
+    ru: ["Веб-сайт", "Приложение"],
+    uz: ["Veb-sayt", "Ilova"],
   };
 
   useEffect(() => {
@@ -326,13 +331,16 @@ export default function OrderPage() {
                     <label className="block">
                       <span className="mb-2 block text-sm font-medium text-slate-300">{t.firstName}</span>
                       <div className="relative">
-                        <UserRound className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-cyan-200/70" />
+                        <UserRound className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-sky-400" />
                         <input
                           required
                           name="firstName"
+                          type="text"
                           autoComplete="given-name"
+                          spellCheck={false}
                           placeholder={t.firstNamePlaceholder}
-                          className="h-14 w-full rounded-2xl border border-white/10 bg-[#07132f]/72 pl-12 pr-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/55 focus:ring-4 focus:ring-cyan-300/10"
+                          style={orderFieldTextStyle}
+                          className="zinvo-order-field h-14 w-full rounded-2xl border border-sky-300/18 bg-[#eaf6ff] pl-12 pr-4 font-medium text-[#07132f] outline-none transition placeholder:text-slate-500 focus:border-sky-500 focus:ring-4 focus:ring-sky-300/25"
                         />
                       </div>
                     </label>
@@ -342,9 +350,12 @@ export default function OrderPage() {
                       <input
                         required
                         name="lastName"
+                        type="text"
                         autoComplete="family-name"
+                        spellCheck={false}
                         placeholder={t.lastNamePlaceholder}
-                        className="h-14 w-full rounded-2xl border border-white/10 bg-[#07132f]/72 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/55 focus:ring-4 focus:ring-cyan-300/10"
+                        style={orderFieldTextStyle}
+                        className="zinvo-order-field h-14 w-full rounded-2xl border border-sky-300/18 bg-[#eaf6ff] px-4 font-medium text-[#07132f] outline-none transition placeholder:text-slate-500 focus:border-sky-500 focus:ring-4 focus:ring-sky-300/25"
                       />
                     </label>
                   </div>
@@ -352,14 +363,15 @@ export default function OrderPage() {
                   <label className="block">
                     <span className="mb-2 block text-sm font-medium text-slate-300">{t.phone}</span>
                     <div className="relative">
-                      <Phone className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-cyan-200/70" />
+                      <Phone className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-sky-400" />
                       <input
                         required
                         name="phone"
                         type="tel"
                         autoComplete="tel"
                         placeholder="+998 90 123 45 67"
-                        className="h-14 w-full rounded-2xl border border-white/10 bg-[#07132f]/72 pl-12 pr-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/55 focus:ring-4 focus:ring-cyan-300/10"
+                        style={orderFieldTextStyle}
+                        className="zinvo-order-field h-14 w-full rounded-2xl border border-sky-300/18 bg-[#eaf6ff] pl-12 pr-4 font-medium text-[#07132f] outline-none transition placeholder:text-slate-500 focus:border-sky-500 focus:ring-4 focus:ring-sky-300/25"
                       />
                     </div>
                   </label>
@@ -367,10 +379,11 @@ export default function OrderPage() {
                   <label className="block">
                     <span className="mb-2 block text-sm font-medium text-slate-300">{t.type}</span>
                     <div className="relative">
-                      <BriefcaseBusiness className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-cyan-200/70" />
+                      <BriefcaseBusiness className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-sky-400" />
                       <select
                         name="projectType"
-                        className="h-14 w-full appearance-none rounded-2xl border border-white/10 bg-[#07132f]/72 pl-12 pr-4 text-white outline-none transition focus:border-cyan-300/55 focus:ring-4 focus:ring-cyan-300/10"
+                        style={orderFieldTextStyle}
+                        className="zinvo-order-field h-14 w-full appearance-none rounded-2xl border border-sky-300/18 bg-[#eaf6ff] pl-12 pr-4 font-medium text-[#07132f] outline-none transition focus:border-sky-500 focus:ring-4 focus:ring-sky-300/25"
                         defaultValue={projectTypes[lang][0]}
                       >
                         {projectTypes[lang].map((projectType) => (
@@ -383,12 +396,13 @@ export default function OrderPage() {
                   <label className="block">
                     <span className="mb-2 block text-sm font-medium text-slate-300">{t.comment}</span>
                     <div className="relative">
-                      <MessageSquareText className="pointer-events-none absolute left-4 top-4 size-5 text-cyan-200/70" />
+                      <MessageSquareText className="pointer-events-none absolute left-4 top-4 size-5 text-sky-400" />
                       <textarea
                         name="comment"
                         rows={4}
                         placeholder={t.commentPlaceholder}
-                        className="w-full resize-none rounded-2xl border border-white/10 bg-[#07132f]/72 py-4 pl-12 pr-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/55 focus:ring-4 focus:ring-cyan-300/10"
+                        style={orderFieldTextStyle}
+                        className="zinvo-order-field w-full resize-none rounded-2xl border border-sky-300/18 bg-[#eaf6ff] py-4 pl-12 pr-4 font-medium text-[#07132f] outline-none transition placeholder:text-slate-500 focus:border-sky-500 focus:ring-4 focus:ring-sky-300/25"
                       />
                     </div>
                   </label>

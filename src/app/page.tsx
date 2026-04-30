@@ -1098,9 +1098,6 @@ function Footer() {
             <p className="mt-2 text-sm text-slate-500">{t.footer}</p>
           </div>
           <div className="flex gap-5 text-sm text-slate-400">
-            <a className="transition hover:text-cyan-200" href="https://github.com/707fa/Zinvo.uz" target="_blank" rel="noreferrer">
-              GitHub
-            </a>
             <a className="transition hover:text-cyan-200" href="https://t.me/Zinvo_uz" target="_blank" rel="noreferrer">
               Telegram
             </a>

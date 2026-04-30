@@ -29,6 +29,27 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+.zinvo-order-field {
+  color: #07132f !important;
+  -webkit-text-fill-color: #07132f !important;
+  caret-color: #0369a1 !important;
+  text-shadow: none !important;
+}
+
+.zinvo-order-field::placeholder {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+  opacity: 1;
+}
+
+.zinvo-order-field:-webkit-autofill,
+.zinvo-order-field:-webkit-autofill:hover,
+.zinvo-order-field:-webkit-autofill:focus {
+  -webkit-text-fill-color: #07132f !important;
+  box-shadow: 0 0 0 1000px #eaf6ff inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 .zinvo-gpu {
   transform: translateZ(0);
   backface-visibility: hidden;
